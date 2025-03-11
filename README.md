@@ -1,1 +1,1 @@
-# readability_font_color
+# 가독성 있는 문자색 지정하기
