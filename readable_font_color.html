@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가독성있는 폰트컬러</title>
+    <style>
+        #btnZone>button{
+            width:120px;
+            height:80px;
+            font-size:50px;
+            margin:3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h2>가독성있는 폰트컬러</h2>
+        <div id="btnZone">
+            <button type="button" class="btnType">1</button>
+            <button type="button" class="btnType">2</button>
+            <button type="button" class="btnType">3</button>
+            <button type="button" class="btnType">4</button>
+            <button type="button" class="btnType">5</button>
+            <button type="button" class="btnType">6</button>
+            <button type="button" class="btnType">7</button>
+            <button type="button" class="btnType">8</button>
+            <button type="button" class="btnType">9</button>
+            <button type="button" class="btnType">10</button>
+        </div>
+    </div>
+    <script>
+        let btnType = document.querySelectorAll(".btnType");
+        let bgColors=[
+          "rgb(255,0,0)","rgb(0,255,0)","rgb(0,0,255)","rgb(255,255,0)","rgb(0,255,255)",
+          "rgb(255,0,255)","rgb(255,255,255)","rgb(0,0,0)","rgb(128,128,0)","rgb(0,128,128)"
+        ]
+
+        for(i=0 ; i<btnType.length ; i++){
+            let r = parseInt(Math.random()*256); // 0~255
+            let g = parseInt(Math.random()*256); // 0~255
+            let b = parseInt(Math.random()*256); // 0~255
+            bgColors[i] = `rgb(${r}, ${g}, ${b})`;
+        }
+
+
+        btnType.forEach((btn, index)=>{
+            btn.style.backgroundColor = bgColors[index];
+            btn.style.color= getChangeFontColor(bgColors[index]);
+        })
+        // 넘겨받은 버튼의 바탕색을 기준으로 폰트색을 조정
+        function getChangeFontColor(color){
+            let r, g,b;
+            let match=color.match(/\d+/g);
+            r = match[0];
+            g = match[1];
+            b = match[2];
+            // 바탕색의 밝기를 기준으로 색의 민감도 계산
+            let brightness = ( (r*299) + (g*587) + (b*114) ) /1000;
+            return brightness>128 ? "black" : "white";
+        }
+    </script>
+</body>
+</html>
